@@ -1,0 +1,230 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Memory Snapshot | SYNCORA</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #0f172a;
+            color: white;
+        }
+
+        .container {
+            max-width: 950px;
+            margin: 50px auto;
+            padding: 25px;
+        }
+
+        .logo {
+            color: #60a5fa;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        h1 {
+            font-size: 36px;
+            margin-top: 35px;
+        }
+
+        .success {
+            color: #4ade80;
+            font-size: 18px;
+        }
+
+        .card {
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 12px;
+            padding: 25px;
+            margin-top: 20px;
+        }
+
+        h2 {
+            color: #60a5fa;
+        }
+
+        .content {
+            white-space: pre-line;
+            color: #cbd5e1;
+            line-height: 1.8;
+        }
+
+        .button {
+            display: inline-block;
+            margin-top: 25px;
+            margin-right: 10px;
+            padding: 13px 22px;
+            background: #2563eb;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .button:hover {
+            background: #1d4ed8;
+        }
+
+        .secondary {
+            background: #334155;
+        }
+
+        .danger {
+            background: #dc2626;
+        }
+
+        .danger:hover {
+            background: #b91c1c;
+        }
+
+        .back {
+            color: #94a3b8;
+            text-decoration: none;
+        }
+
+        /* Responsive buttons */
+
+        @media (max-width: 600px) {
+
+            .container {
+                margin: 20px auto;
+                padding: 15px;
+            }
+
+            h1 {
+                font-size: 28px;
+            }
+
+            .button {
+                display: block;
+                width: 100%;
+                text-align: center;
+                margin-right: 0;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="logo">SYNCORA</div>
+
+    <a href="/memories" class="back">
+        ← Back to My Memories
+    </a>
+
+    <h1>{{ memory['title'] }}</h1>
+
+    <p class="success">
+        ✓ Memory Snapshot Created Successfully
+    </p>
+
+    <div class="card">
+
+        <h2>📝 Summary</h2>
+
+        <p class="content">
+            {{ memory['summary'] }}
+        </p>
+
+    </div>
+
+    <div class="card">
+
+        <h2>🎯 Goals</h2>
+
+        <p class="content">
+            {{ memory['goals'] }}
+        </p>
+
+    </div>
+
+    <div class="card">
+
+        <h2>⭐ Preferences</h2>
+
+        <p class="content">
+            {{ memory['preferences'] }}
+        </p>
+
+    </div>
+
+    <div class="card">
+
+        <h2>✅ Tasks & Actions</h2>
+
+        <p class="content">
+            {{ memory['tasks'] }}
+        </p>
+
+    </div>
+
+    <p style="color: #64748b;">
+        Created at: {{ memory['created_at'] }}
+    </p>
+
+
+    <!-- ACTION BUTTONS -->
+
+    <a href="/capture" class="button">
+        + Capture Another
+    </a>
+
+    <a
+        href="/context/{{ memory['id'] }}"
+        class="button"
+    >
+        📋 Generate Context Pack
+    </a>
+
+    <a
+        href="/memories"
+        class="button secondary"
+    >
+        View All Memories
+    </a>
+
+
+    <!-- DELETE MEMORY -->
+
+    <form
+        action="/delete/{{ memory['id'] }}"
+        method="POST"
+        style="display: inline;"
+        onsubmit="return confirm('Delete this memory permanently?');"
+    >
+
+        <button
+            type="submit"
+            class="button danger"
+        >
+            Delete Memory
+        </button>
+
+    </form>
+
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,319 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Memories | SYNCORA</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #0f172a;
+            color: white;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 25px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            color: #60a5fa;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        h1 {
+            font-size: 36px;
+            margin-top: 40px;
+        }
+
+        .subtitle {
+            color: #94a3b8;
+            font-size: 17px;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 13px 20px;
+            background: #2563eb;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            border: none;
+            font-size: 15px;
+            cursor: pointer;
+        }
+
+        .button:hover {
+            background: #1d4ed8;
+        }
+
+        .memory-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 35px;
+        }
+
+        .card {
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 12px;
+            padding: 22px;
+        }
+
+        .card h2 {
+            color: #60a5fa;
+            margin-top: 0;
+        }
+
+        .card p {
+            color: #cbd5e1;
+            line-height: 1.6;
+        }
+
+        .date {
+            color: #64748b;
+            font-size: 13px;
+            margin-top: 20px;
+        }
+
+        .view-button {
+            display: inline-block;
+            margin-top: 15px;
+            margin-right: 10px;
+            color: #93c5fd;
+            text-decoration: none;
+        }
+
+        .view-button:hover {
+            color: #60a5fa;
+        }
+
+        .context-button {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 10px 14px;
+            background: #334155;
+            color: #e2e8f0;
+            text-decoration: none;
+            border-radius: 7px;
+            font-size: 14px;
+        }
+
+        .context-button:hover {
+            background: #475569;
+        }
+
+        .search-box {
+            display: flex;
+            gap: 10px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .search-box input {
+            flex: 1;
+            min-width: 220px;
+            padding: 15px;
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 8px;
+            color: white;
+            font-size: 16px;
+        }
+
+        .search-box input::placeholder {
+            color: #94a3b8;
+        }
+
+        .clear-button {
+            display: inline-block;
+            padding: 13px 20px;
+            background: #334155;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+        }
+
+        .clear-button:hover {
+            background: #475569;
+        }
+
+        .result-info {
+            color: #93c5fd;
+            margin-top: 20px;
+        }
+
+        .empty {
+            background: #1e293b;
+            padding: 35px;
+            border-radius: 12px;
+            margin-top: 30px;
+            color: #cbd5e1;
+        }
+
+        .back {
+            color: #94a3b8;
+            text-decoration: none;
+        }
+
+        .back:hover {
+            color: #60a5fa;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="header">
+
+        <div class="logo">SYNCORA</div>
+
+        <a href="/capture" class="button">
+            + Capture New Memory
+        </a>
+
+    </div>
+
+    <a href="/" class="back">← Back to Home</a>
+
+    <h1>My Memories</h1>
+
+    <p class="subtitle">
+        Your saved AI conversation context, organized in one place.
+    </p>
+
+    <!-- SEARCH BAR -->
+
+    <form action="/memories" method="GET" class="search-box">
+
+        <input
+            type="text"
+            name="q"
+            placeholder="🔍 Search memories by title, goals, projects..."
+            value="{{ search_query }}"
+        >
+
+        <button type="submit" class="button">
+            Search
+        </button>
+
+        {% if search_query %}
+
+            <a href="/memories" class="clear-button">
+                Clear
+            </a>
+
+        {% endif %}
+
+    </form>
+
+    {% if search_query %}
+
+        <p class="result-info">
+            Search results for: <strong>{{ search_query }}</strong>
+        </p>
+
+    {% endif %}
+
+    {% if memories %}
+
+        <div class="memory-grid">
+
+            {% for memory in memories %}
+
+                <div class="card">
+
+                    <h2>{{ memory['title'] }}</h2>
+
+                    <p>
+                        {{ memory['summary'] }}
+                    </p>
+
+                    <p class="date">
+                        Created: {{ memory['created_at'] }}
+                    </p>
+
+                    <!-- VIEW MEMORY -->
+
+                    <a
+                        href="/memory/{{ memory['id'] }}"
+                        class="view-button"
+                    >
+                        View Memory →
+                    </a>
+
+                    <!-- CONTEXT PACK -->
+
+                    <a
+                        href="/context/{{ memory['id'] }}"
+                        class="context-button"
+                    >
+                        📋 Context Pack
+                    </a>
+
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    {% else %}
+
+        <div class="empty">
+
+            {% if search_query %}
+
+                <h2>No matching memories found</h2>
+
+                <p>
+                    Try searching with a different keyword.
+                </p>
+
+                <a href="/memories" class="button">
+                    View All Memories
+                </a>
+
+            {% else %}
+
+                <h2>No memories yet</h2>
+
+                <p>
+                    Capture your first AI conversation to create
+                    an organized memory snapshot.
+                </p>
+
+                <a href="/capture" class="button">
+                    Create First Memory
+                </a>
+
+            {% endif %}
+
+        </div>
+
+    {% endif %}
+
+</div>
+
+</body>
+</html>

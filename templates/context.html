@@ -1,0 +1,260 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Context Pack | SYNCORA</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #0f172a;
+            color: white;
+        }
+
+        .container {
+            max-width: 950px;
+            margin: 40px auto;
+            padding: 25px;
+        }
+
+        .logo {
+            color: #60a5fa;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        h1 {
+            font-size: 36px;
+            margin-top: 35px;
+        }
+
+        .subtitle {
+            color: #94a3b8;
+            font-size: 17px;
+            line-height: 1.6;
+        }
+
+        .pack {
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 12px;
+            padding: 30px;
+            margin-top: 30px;
+        }
+
+        .pack h2 {
+            color: #60a5fa;
+            margin-top: 0;
+        }
+
+        .section {
+            margin-top: 25px;
+        }
+
+        .section h3 {
+            color: #93c5fd;
+        }
+
+        .content {
+            color: #cbd5e1;
+            line-height: 1.8;
+            white-space: pre-line;
+        }
+
+        .copy-area {
+            width: 100%;
+            min-height: 350px;
+            margin-top: 25px;
+            padding: 20px;
+            background: #0f172a;
+            color: #e2e8f0;
+            border: 1px solid #475569;
+            border-radius: 8px;
+            font-size: 15px;
+            line-height: 1.7;
+            resize: vertical;
+        }
+
+        .button {
+            display: inline-block;
+            margin-top: 20px;
+            margin-right: 10px;
+            padding: 13px 22px;
+            background: #2563eb;
+            color: white;
+            text-decoration: none;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .button:hover {
+            background: #1d4ed8;
+        }
+
+        .secondary {
+            background: #334155;
+        }
+
+        .success {
+            color: #4ade80;
+            margin-top: 15px;
+        }
+
+        @media (max-width: 600px) {
+
+            .container {
+                margin: 20px auto;
+                padding: 15px;
+            }
+
+            h1 {
+                font-size: 28px;
+            }
+
+            .pack {
+                padding: 20px;
+            }
+
+            .button {
+                width: 100%;
+                text-align: center;
+                margin-right: 0;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="logo">SYNCORA</div>
+
+    <a href="/memory/{{ memory['id'] }}"
+       style="color: #94a3b8; text-decoration: none;">
+        ← Back to Memory
+    </a>
+
+    <h1>Reusable Context Pack</h1>
+
+    <p class="subtitle">
+        Your organized AI memory, ready to reuse in ChatGPT,
+        Gemini, Claude, or another AI assistant.
+    </p>
+
+    <div class="pack">
+
+        <h2>{{ memory['title'] }}</h2>
+
+        <p class="success">
+            ✓ Context Pack Generated
+        </p>
+
+        <div class="section">
+
+            <h3>🎯 Goals</h3>
+
+            <p class="content">
+                {{ memory['goals'] }}
+            </p>
+
+        </div>
+
+        <div class="section">
+
+            <h3>⭐ Preferences</h3>
+
+            <p class="content">
+                {{ memory['preferences'] }}
+            </p>
+
+        </div>
+
+        <div class="section">
+
+            <h3>✅ Tasks & Actions</h3>
+
+            <p class="content">
+                {{ memory['tasks'] }}
+            </p>
+
+        </div>
+
+        <h3>📋 Copyable AI Context</h3>
+
+        <textarea
+            class="copy-area"
+            id="contextText"
+            readonly
+>You are assisting me using the following saved context.
+
+MEMORY TITLE:
+{{ memory['title'] }}
+
+MY GOALS:
+{{ memory['goals'] }}
+
+MY PREFERENCES:
+{{ memory['preferences'] }}
+
+MY CURRENT TASKS:
+{{ memory['tasks'] }}
+
+Please consider this context when giving me future answers.
+Maintain continuity with my goals, preferences, and ongoing work.</textarea>
+
+        <button class="button" onclick="copyContext()">
+            📋 Copy Context Pack
+        </button>
+
+        <a href="/memories" class="button secondary">
+            View All Memories
+        </a>
+
+        <p id="copyMessage" class="success"></p>
+
+    </div>
+
+</div>
+
+<script>
+
+function copyContext() {
+
+    const text = document.getElementById("contextText").value;
+
+    navigator.clipboard.writeText(text).then(function() {
+
+        document.getElementById("copyMessage").innerText =
+            "✓ Context Pack copied successfully!";
+
+    }).catch(function() {
+
+        document.getElementById("copyMessage").innerText =
+            "Please select and copy the text manually.";
+
+    });
+
+}
+
+</script>
+
+</body>
+
+</html>

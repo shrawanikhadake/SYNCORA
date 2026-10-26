@@ -1,0 +1,131 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Capture Memory | SYNCORA</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #0f172a;
+            color: white;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 50px auto;
+            padding: 25px;
+        }
+
+        .logo {
+            color: #60a5fa;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        h1 {
+            font-size: 36px;
+            margin-top: 50px;
+        }
+
+        p {
+            color: #94a3b8;
+            font-size: 17px;
+        }
+
+        label {
+            display: block;
+            margin-top: 30px;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #334155;
+            border-radius: 8px;
+            background: #1e293b;
+            color: white;
+            font-size: 16px;
+        }
+
+        textarea {
+            min-height: 250px;
+            resize: vertical;
+        }
+
+        button {
+            margin-top: 25px;
+            padding: 15px 28px;
+            background: #2563eb;
+            border: none;
+            color: white;
+            border-radius: 8px;
+            font-size: 17px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #1d4ed8;
+        }
+
+        .back {
+            color: #94a3b8;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="logo">SYNCORA</div>
+
+        <a href="/" class="back">← Back to Home</a>
+
+        <h1>Capture Your AI Conversation</h1>
+
+        <p>
+            Save important context from your AI conversations
+            and turn it into an organized memory.
+        </p>
+
+        <form action="/generate" method="POST">
+
+            <label>Conversation Title</label>
+
+            <input
+                type="text"
+                name="title"
+                placeholder="Example: Data Dharma Project"
+                required
+            >
+
+            <label>Paste Your AI Conversation</label>
+
+            <textarea
+                name="conversation"
+                placeholder="Paste your conversation with ChatGPT, Gemini, Claude, or another AI tool here..."
+                required
+            ></textarea>
+
+            <button type="submit">
+                Generate Memory Snapshot →
+            </button>
+
+        </form>
+
+    </div>
+
+</body>
+</html>
